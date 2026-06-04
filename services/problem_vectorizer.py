@@ -64,7 +64,7 @@ def get_tag_slug(tag) -> str:
     return str(tag).lower()
 
 
-def vectorrize_problem(problem: dict) -> np.ndarray:
+def vectorize_problem(problem: dict) -> np.ndarray:
     """
     Converts a problem into a feature vector
     [topic_1, topic_2 ..., difficulty , acceptance]
