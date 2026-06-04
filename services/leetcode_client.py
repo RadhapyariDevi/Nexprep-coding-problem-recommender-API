@@ -54,3 +54,18 @@ class LeetCodeClient:
             r = await client.get(f"{self.base}/{username}/contest", timeout=15)
             r.raise_for_status()
             return r.json()
+        
+    #fetch problem details by slug
+    async def get_problem_details(self, slug: str) -> dict:
+        async with httpx.AsyncClient() as client:
+            r = await client.get(f"{self.base}/select?titleSlug={slug}", timeout=15)
+            r.raise_for_status()
+            return r.json()
+        
+    async def get_problems(self, limit=100, skip=0):
+        async with httpx.AsyncClient() as client:
+            r = await client.get(
+                f"{self.base}/problems?limit={limit}&skip={skip}"
+            )
+            r.raise_for_status()
+            return r.json()

@@ -6,6 +6,7 @@ from services.leetcode_client import LeetCodeClient
 from services.mastery import build_mastery_vector
 from services.calibrator import calibrate_difficulty
 from services.scorer import rank_problems
+from services.problem_cache import get_problem
 
 client = LeetCodeClient()
 
@@ -31,11 +32,10 @@ async def generate_recommendations(username: str, top_k: int = 10) -> dict:
     for s in ac_list:
         slug = s.get("titleSlug", "")
         if slug:
-            problem_details[slug] = {
-                "difficulty": s.get("difficulty", "Medium"),
-                "acRate": 50.0,  # submission data doesn't include this; fetch separately
-                "topicTags": []  # same — enrich via /select?titleSlug= endpoint
-            }
+            details = get_problem(slug)
+
+            if details:
+                problem_details[slug] = details
 
 
     # Build mastery vector 
