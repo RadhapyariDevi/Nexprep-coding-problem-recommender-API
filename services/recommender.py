@@ -6,13 +6,14 @@ from services.leetcode_client import LeetCodeClient
 from services.mastery import build_mastery_vector
 from services.calibrator import calibrate_difficulty
 from services.scorer import rank_problems
-from services.problem_cache import get_problem
+from services.problem_cache import get_problem, get_problems_by_tag_local
 
 client = LeetCodeClient()
 
 async def generate_recommendations(username: str, top_k: int = 10) -> dict:
 
     # fetch all required data concurrently
+    
     profile, skill_stats, submissions, solved_stats, contest = await asyncio.gather(
         client.get_profile(username),
         client.get_skill_stats(username),
@@ -54,17 +55,22 @@ async def generate_recommendations(username: str, top_k: int = 10) -> dict:
 
 
     # Fetch candidate problems for weak topics 
-    candidate_fetch = await asyncio.gather(*[
-        client.get_problems_by_tag(tag, target_difficulty, limit=20)
+    candidate_fetch = [
+        get_problems_by_tag_local(
+            tag,
+            target_difficulty,
+            limit=20
+        )
         for tag, _ in weak_topics
-    ])
+    ]
     candidates = []
     for result in candidate_fetch:
-        candidates.extend(result.get("problemsetQuestionList", []))
-
+        candidates.extend(result)
 
     
+    
     # Deduplicate
+
     seen = set()
     unique_candidates = []
     for p in candidates:
@@ -73,9 +79,9 @@ async def generate_recommendations(username: str, top_k: int = 10) -> dict:
             seen.add(slug)
             unique_candidates.append(p)
 
-    
 
     # Score & rank 
+
 
     ranked = rank_problems(
         unique_candidates, mastery_vector,

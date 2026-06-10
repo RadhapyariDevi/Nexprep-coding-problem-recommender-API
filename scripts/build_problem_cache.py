@@ -19,6 +19,8 @@ async def main():
 
         for p in problems:
             cache[p["titleSlug"]] = {
+                "title": p["title"],
+                "titleSlug": p["titleSlug"],
                 "difficulty": p["difficulty"],
                 "acRate": p["acRate"],
                 "topicTags": [t["slug"] for t in p["topicTags"]]
