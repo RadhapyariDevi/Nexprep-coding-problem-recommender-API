@@ -10,8 +10,8 @@ def recency_decay(timestamp):
 
 def difficulty_weight(cf_rating):
     if not cf_rating:
-        return 1.5  # default for unrated problems
-    return cf_rating / 1000  # 1400 → 1.4, 2200 → 2.2
+        return 1.5  
+    return cf_rating / 1000  
 
 def build_mastery_vector(processed_submissions, quality_weight=0.75):
     topic_scores = {}
@@ -37,23 +37,19 @@ def build_mastery_vector(processed_submissions, quality_weight=0.75):
     if not topic_scores:
         return {}
 
-    # average score per topic
     raw = {t: topic_scores[t] / topic_counts[t] for t in topic_scores}
 
-    # volume bonus — log scaled
     max_count = max(topic_counts.values())
     volume = {
         t: np.log1p(topic_counts[t]) / np.log1p(max_count)
         for t in topic_counts
     }
 
-    # blend quality + volume
     blended = {
         t: quality_weight * raw[t] + (1 - quality_weight) * volume[t]
         for t in raw
     }
 
-    # normalize to 0-1
     min_v = min(blended.values())
     max_v = max(blended.values())
     span = max_v - min_v if max_v != min_v else 1.0
