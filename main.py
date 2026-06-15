@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.recommend import router
 from config import ALFA_API_BASE
+from cf.router import router as cf_router
 
 app = FastAPI(
     title="Nexprep - LeetCode Problem Recommender",
@@ -19,3 +20,4 @@ app.add_middleware(
 )
 
 app.include_router(router, prefix="/api/v1")
+app.include_router(cf_router)
