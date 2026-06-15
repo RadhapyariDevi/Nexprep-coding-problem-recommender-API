@@ -56,5 +56,4 @@ def build_mastery_vector(processed_submissions, quality_weight=0.75):
 
     mastery = {t: round((blended[t] - min_v) / span, 4) for t in blended}
 
-    # sort descending for readability
     return dict(sorted(mastery.items(), key=lambda x: x[1], reverse=True))
