@@ -26,7 +26,7 @@ def load(handle, data_type):
         payload = json.load(f)
     age_hours = (time.time() - payload["fetched_at"]) / 3600
     if age_hours > CACHE_EXPIRY_HOURS:
-        return None  # stale, refetch
+        return None  
     return payload["data"]
 
 def get_or_fetch(handle, data_type, fetch_fn):

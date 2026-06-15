@@ -14,7 +14,6 @@ db = client[DB_NAME]
 
 problems_collection = db["cf_problems"]
 
-# This forces Python to test the connection immediately right here
 try:
     client.admin.command('ping')
     print("[database] Successfully authenticated and connected to MongoDB Atlas Cloud!")
