@@ -19,16 +19,11 @@ client = LeetCodeClient()
 
 
 #  Health check 
-@router.get(
-    "/health",
-    response_model=HealthResponse,
-    summary="Health check",
-    tags=["Meta"]
-)
+@router.get("/health", response_model=HealthResponse, summary="Health check", tags=["Meta"])
 async def health_check():
     try:
         async with httpx.AsyncClient() as c:
-            r = await c.get(f"{ALFA_API_BASE}/health", timeout=5)
+            r = await c.get(ALFA_API_BASE, timeout=30.0)  # hit root "/" not "/health"
             alfa_ok = r.status_code == 200
     except Exception:
         alfa_ok = False
