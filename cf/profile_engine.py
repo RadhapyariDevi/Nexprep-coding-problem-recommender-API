@@ -1,9 +1,9 @@
 # profile_engine.py  ← new file, paste run() here
-from fetcher import get_user_info, get_submissions, get_rating_history
-from cache import get_or_fetch
-from processor import process_submissions
-from mastery import build_mastery_vector
-from velocity import compute_growth_velocity, current_rating
+from cf.fetcher import get_user_info, get_submissions, get_rating_history
+from cf.cache import get_or_fetch
+from cf.processor import process_submissions
+from cf.mastery import build_mastery_vector
+from cf.velocity import compute_growth_velocity, current_rating
 
 def run(handle):
     print(f"\n=== Codeforces profile: {handle} ===\n")
