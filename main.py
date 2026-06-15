@@ -1,7 +1,7 @@
 import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes.recommend import router
+from LEETCODE.routes.recommend import router
 from config import ALFA_API_BASE
 
 app = FastAPI(

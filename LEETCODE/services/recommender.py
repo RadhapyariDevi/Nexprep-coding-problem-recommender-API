@@ -2,11 +2,11 @@ import asyncio
 import time
 from collections import Counter
 
-from services.leetcode_client import LeetCodeClient
-from services.mastery import build_mastery_vector
-from services.calibrator import calibrate_difficulty
-from services.scorer import rank_problems
-from services.problem_cache import get_problem, get_problems_by_tag_local
+from LEETCODE.services.leetcode_client import LeetCodeClient
+from LEETCODE.services.mastery import build_mastery_vector
+from LEETCODE.services.calibrator import calibrate_difficulty
+from LEETCODE.services.scorer import rank_problems
+from LEETCODE.services.problem_cache import get_problem, get_problems_by_tag_local
 
 client = LeetCodeClient()
 

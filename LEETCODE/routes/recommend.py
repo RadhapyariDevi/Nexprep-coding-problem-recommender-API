@@ -1,15 +1,15 @@
 from fastapi import APIRouter, HTTPException, Query
 from config import ALFA_API_BASE
-from models.schemas import (
+from LEETCODE.models.schemas import (
     RecommendationResponse, MasteryResponse, WeakSpotsResponse,
     DifficultyCalibrationResponse, RecommendRequest, HealthResponse,
     MasteryTopic, WeakSpot
 )
 
-from services.recommender import generate_recommendations
-from services.leetcode_client import LeetCodeClient
-from services.mastery import build_mastery_vector
-from services.calibrator import calibrate_difficulty
+from LEETCODE.services.recommender import generate_recommendations
+from LEETCODE.services.leetcode_client import LeetCodeClient
+from LEETCODE.services.mastery import build_mastery_vector
+from LEETCODE.services.calibrator import calibrate_difficulty
 import httpx, time
 import asyncio
 

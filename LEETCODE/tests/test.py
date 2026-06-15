@@ -1,5 +1,5 @@
 import asyncio
-from services.leetcode_client import LeetCodeClient
+from LEETCODE.services.leetcode_client import LeetCodeClient
 c = LeetCodeClient()
 # print(asyncio.run(c.get_problem_details("find-the-duplicate-number")))
 print(asyncio.run(c.get_problems(limit=1)))
