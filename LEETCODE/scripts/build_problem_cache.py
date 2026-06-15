@@ -1,6 +1,6 @@
 import json
 import asyncio
-from services.leetcode_client import LeetCodeClient
+from LEETCODE.services.leetcode_client import LeetCodeClient
 
 client = LeetCodeClient()
 

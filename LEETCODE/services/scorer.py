@@ -1,4 +1,4 @@
-from services.problem_vectorizer import get_tag_slug, vectorize_problem, vectorize_user_weakness, cosine_similarity
+from LEETCODE.services.problem_vectorizer import get_tag_slug, vectorize_problem, vectorize_user_weakness, cosine_similarity
 from typing import List, Dict
 import math
 
