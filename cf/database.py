@@ -4,8 +4,6 @@ from pymongo import MongoClient
 import certifi
 
 load_dotenv()
-# # 1. Paste your Atlas connection string directly as the fallback string here:
-# DEFAULT_ATLAS_URI = "mongodb+srv://tester:vishara123@cluster0.5kv6xf8.mongodb.net/?appName=Cluster0"
 
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("DB_NAME", "algo_recommendation_db")
