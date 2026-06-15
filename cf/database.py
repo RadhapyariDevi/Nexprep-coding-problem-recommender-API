@@ -2,6 +2,7 @@
 import os
 from pymongo import MongoClient
 import certifi
+from dotenv import load_dotenv()
 
 load_dotenv()
 
