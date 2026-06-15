@@ -2,6 +2,7 @@
 import os
 from pymongo import MongoClient
 import certifi
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -19,4 +20,8 @@ try:
 except Exception as e:
     print(f"[database CRITICAL] Could not connect to Atlas. Check your password/IP settings. Error: {e}")
 
-problems_collection.create_index("cf_rating")
+try:
+    problems_collection.create_index("cf_rating")
+    print("[database] Index created")
+except Exception as e:
+    print(f"[database] Index creation failed: {e}")
