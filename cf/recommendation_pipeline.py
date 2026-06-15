@@ -2,8 +2,8 @@
 # recommendation_pipeline.py
 import json
 import os
-from database import problems_collection
-from profile_engine import run as run_profile_engine
+from cf.database import problems_collection
+from cf.profile_engine import run as run_profile_engine
 import random
 
 
