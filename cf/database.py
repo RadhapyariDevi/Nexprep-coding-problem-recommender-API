@@ -21,8 +21,9 @@ try:
 except Exception as e:
     print(f"[database CRITICAL] Could not connect to Atlas. Check your password/IP settings. Error: {e}")
 
-try:
-    problems_collection.create_index("cf_rating")
-    print("[database] Index created")
-except Exception as e:
-    print(f"[database] Index creation failed: {e}")
+def init_db():
+    try:
+        problems_collection.create_index("cf_rating")
+        print("[database] Index created")
+    except Exception as e:
+        print(f"[database] Index creation failed: {e}")
