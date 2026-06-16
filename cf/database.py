@@ -13,6 +13,7 @@ client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000,tlsCAFile=certifi.
 db = client[DB_NAME]
 
 problems_collection = db["cf_problems"]
+leetcode_collection = db["leetcode_problems"]
 
 try:
     client.admin.command('ping')

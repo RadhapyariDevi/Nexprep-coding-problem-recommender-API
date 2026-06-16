@@ -1,38 +1,44 @@
-import json
 import asyncio
 from LEETCODE.services.leetcode_client import LeetCodeClient
+from cf.database import leetcode_collection
+from pymongo import UpdateOne
 
 client = LeetCodeClient()
 
 async def main():
-    cache = {}
     skip = 0
     limit = 100
+    total_synced = 0
 
     while True:
         result = await client.get_problems(limit=limit, skip=skip)
-
-        problems = result["problemsetQuestionList"]
+        problems = result.get("problemsetQuestionList", [])
 
         if not problems:
             break
 
+        operations = []
         for p in problems:
-            cache[p["titleSlug"]] = {
+            doc = {
+                "slug": p["titleSlug"],
                 "title": p["title"],
                 "titleSlug": p["titleSlug"],
                 "difficulty": p["difficulty"],
                 "acRate": p["acRate"],
                 "topicTags": [t["slug"] for t in p["topicTags"]]
             }
+            
+            operations.append(
+                UpdateOne({"slug": doc["slug"]}, {"$set": doc}, upsert=True)
+            )
 
-        print(f"Fetched {len(cache)}")
+        if operations:
+            leetcode_collection.bulk_write(operations)
+            total_synced += len(operations)
 
+        print(f"Fetched and synced {total_synced} problems...")
         skip += limit
 
-    with open("problem_cache.json", "w", encoding="utf-8") as f:
-        json.dump(cache, f)
-
-    print(f"Saved {len(cache)} problems")
+    print(f"Successfully stored {total_synced} LeetCode problems directly to MongoDB Atlas!")
 
 asyncio.run(main())
